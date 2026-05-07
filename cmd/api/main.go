@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5"
@@ -23,9 +24,23 @@ func main() {
 		log.Fatalf("Unable to parse DB config:", err)
 	}
 
-	conn, err := pgx.ConnectConfig(context.Background(), dbConfig)
+	var conn *pgx.Conn
+
+	for i := 0; i < 10; i++ {
+		conn, err = pgx.ConnectConfig(context.Background(), dbConfig)
+
+		if err == nil {
+			log.Println("Connected to PostgreSQL")
+			break
+		}
+
+		log.Printf("Database not ready yet... retrying (%d/10)\n", i+1)
+
+		time.Sleep(2 * time.Second)
+	}
+
 	if err != nil {
-		log.Fatalf("Unable to connect to database:", err)
+		log.Fatal("Unable to connect to database:", err)
 	}
 	defer conn.Close(context.Background())
 
