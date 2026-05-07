@@ -1,0 +1,36 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binaries and coverage reports
+*.test
+*.out
+*.coverprofile
+coverage.txt
+
+# Dependency directories
+# Keep these ignored unless you use 'go mod vendor' specifically
+vendor/
+
+# Environment variables (Crucial for Postgres credentials)
+.env
+*.env
+.env.*
+!.env.example
+
+# IDE / Editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Hot-reload tools (like 'air')
+tmp/
+bin/
