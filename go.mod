@@ -1,4 +1,4 @@
-module github.com/thetramp22/guitar-practice-tracker
+module github.com/thetramp22/rifflog
 
 go 1.25.0
 

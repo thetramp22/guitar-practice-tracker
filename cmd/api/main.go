@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-	"github.com/thetramp22/guitar-practice-tracker/internal/config"
+	"github.com/thetramp22/rifflog/internal/config"
 )
 
 func main() {
