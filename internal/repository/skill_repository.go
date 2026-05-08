@@ -31,6 +31,23 @@ func (r *SkillRepository) CreateSkill(skill models.Skill) error {
 	return err
 }
 
+func (r *SkillRepository) SeedSkill(skill models.Skill) error {
+	query := `
+		INSERT INTO skills (name, description)
+		VALUES ($1, $2)
+		ON CONFLICT (name) DO NOTHING
+	`
+
+	_, err := r.DB.Exec(
+		context.Background(),
+		query,
+		skill.Name,
+		skill.Description,
+	)
+
+	return err
+}
+
 func (r *SkillRepository) GetSkills() ([]models.Skill, error) {
 	query := `
 		SELECT id, name, description, created_at

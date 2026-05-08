@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/thetramp22/rifflog/internal/bootstrap"
 	"github.com/thetramp22/rifflog/internal/database"
 	"github.com/thetramp22/rifflog/internal/handlers"
 	"github.com/thetramp22/rifflog/internal/repository"
@@ -31,12 +32,19 @@ func main() {
 	userService := services.NewUserService(userRepo)
 	userHandler := handlers.NewUserHandler(userService)
 
+	skillRepo := repository.NewSkillRepository(conn)
+	skillService := services.NewSkillService(skillRepo)
+	skillHandler := handlers.NewSkillHandler(skillService)
+
+	bootstrap.PopulateSkillsList(skillRepo)
+
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"status": "ok",
 		})
 	})
 	router.POST("/register", userHandler.Register)
+	router.GET("/skills", skillHandler.ListSkills)
 
 	port := os.Getenv("APP_PORT")
 	if port == "" {
