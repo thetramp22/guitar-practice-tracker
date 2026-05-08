@@ -1,0 +1,6 @@
+CREATE TABLE skills (
+    id SERIAL PRIMARY KEY,
+    name TEXT NULL UNIQUE,
+    description TEXT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
