@@ -18,7 +18,8 @@ func (s *PracticeSessionService) CreatePracticeSession(req models.SessionsReques
 		SkillID:         req.SkillID,
 		DurationMinutes: req.DurationMinutes,
 		PracticedAt:     req.PracticedAt,
-		Notes:           &req.Notes,
+		Notes:           req.Notes,
+		UserID:          req.UserID,
 	}
 
 	return s.Repo.CreatePracticeSession(practiceSession)
